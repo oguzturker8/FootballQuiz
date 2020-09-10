@@ -357,7 +357,6 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 12,
   },
   filterContainer: {
-    backgroundColor: "blue",
     width: 260,
     borderRadius: 50,
     backgroundColor: "#6a6ffd",

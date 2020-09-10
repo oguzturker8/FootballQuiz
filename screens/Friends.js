@@ -245,7 +245,6 @@ const styles = StyleSheet.create({
     marginVertical: 25,
   },
   filterContainer: {
-    backgroundColor: "blue",
     width: (width * 0.9) / 1.15 + 24,
     borderRadius: 50,
     backgroundColor: "#6a6ffd",

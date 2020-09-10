@@ -33,7 +33,6 @@ export default function Friends({
               questions: questions,
               prize: prize,
               flag: flag,
-              avatar: avatar,
             });
           }}
         >
@@ -70,7 +69,6 @@ export default function Friends({
 const styles = StyleSheet.create({
   container: {
     width: width * 0.85,
-    backgroundColor: "blue",
     marginVertical: 5,
     borderRadius: 40,
     backgroundColor: "#0c0e16",

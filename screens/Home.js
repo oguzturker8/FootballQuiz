@@ -403,7 +403,6 @@ export default function Home({ navigation }) {
               itemStyle={{
                 backgroundColor: "grey",
                 color: "blue",
-                fontFamily: "Ebrima",
                 fontFamily: "Geomanist-Medium",
                 fontSize: 12,
               }}
