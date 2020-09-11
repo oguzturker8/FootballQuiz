@@ -472,8 +472,23 @@ const styles = StyleSheet.create({
     fontFamily: "Geomanist-Bold",
   },
   avatarBorder: {
-    //backgroundColor: "#151826",
-    //padding: 5,
+    width: IMAGE_WIDTH / 2 + 5,
+    height: IMAGE_WIDTH / 2 + 5,
+    /*
+    borderWidth: 2,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#fff",
+    transform: [{ skewX: "-45deg" }],
+    margin: 20,
+    */
+  },
+  avatarDeneme: {
+    backgroundColor: "#fff", //"#151826"
+    width: 200,
+    height: 100,
+    transform: [{ skewX: "20deg" }],
+    position: "absolute",
   },
   gemContainer: {
     flexDirection: "row",

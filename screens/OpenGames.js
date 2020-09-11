@@ -148,6 +148,8 @@ const Players = [
 
 export default function OpenGames({ navigation }) {
   const [index, setIndex] = useState(0);
+  const [filter, setFilter] = useState(0);
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
@@ -181,8 +183,9 @@ export default function OpenGames({ navigation }) {
                 state={index}
                 setState={setIndex}
                 key={indx}
-                isDuel={indx == 2 ? false : true}
+                isDuel={indx != 2 ? false : true}
                 navigation={navigation}
+                setFilter={setFilter}
               />
             ))}
           </View>

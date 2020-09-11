@@ -11,6 +11,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import Record from "../components/record";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import Back from "../components/back";
+import { AnimatedCircularProgress } from "react-native-circular-progress";
 
 const { width, height } = Dimensions.get("window");
 
@@ -24,20 +25,36 @@ export default function Profile({ route, navigation }) {
     flag,
     avatar,
     isFriend,
+    exp,
   } = route.params;
+
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <ImageBackground
         style={{
           width,
           height,
-          justifyContent: "center",
+          justifyContent: "flex-start",
           alignItems: "center",
         }}
         source={require("../assets/loginbg.png")}
         resizeMode="stretch"
       >
         <Back navigation={navigation} />
+        <AnimatedCircularProgress
+          size={width / 3}
+          width={5}
+          fill={exp || 100}
+          tintColor="#6a6ffd"
+          onAnimationComplete={() => {}}
+          backgroundColor="#1b1e2b"
+          style={{
+            position: "absolute",
+            zIndex: 5,
+            elevation: 5,
+            top: height / 5 + 30,
+          }}
+        ></AnimatedCircularProgress>
         <Image style={styles.flag} source={flag} />
         <View style={styles.profileContainer}>
           <Image style={styles.avatar} source={avatar} />
@@ -64,13 +81,12 @@ const styles = StyleSheet.create({
     height: 20,
     width: 35,
     borderRadius: 6,
+    marginTop: height / 5,
   },
   avatar: {
     height: width / 3,
     width: width / 3,
     borderRadius: width / 6,
-    borderWidth: 5,
-    borderColor: "#6a6ffd",
     marginVertical: 10,
   },
   lvl: {
@@ -83,6 +99,8 @@ const styles = StyleSheet.create({
     paddingHorizontal: 12.5,
     backgroundColor: "#6a6ffd",
     borderRadius: 50,
+    elevation: 6,
+    zIndex: 6,
   },
   profileContainer: {
     alignItems: "center",

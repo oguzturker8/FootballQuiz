@@ -38,6 +38,7 @@ const RANKING = [
     flag: require("../assets/flags/tr.png"),
     date: "12.05.2020",
     prize: "IPHONE 11",
+    exp: "42%",
   },
   {
     name: "Ayse DEMIR",
@@ -45,6 +46,7 @@ const RANKING = [
     flag: require("../assets/flags/tr.png"),
     date: "12.05.2020",
     prize: "IPHONE 11",
+    exp: "88%",
   },
   {
     name: "Ayse DEMIR",
@@ -52,6 +54,7 @@ const RANKING = [
     flag: require("../assets/flags/tr.png"),
     date: "12.05.2020",
     prize: "IPHONE 11",
+    exp: "33%",
   },
   {
     name: "Ayse DEMIR",
@@ -59,6 +62,7 @@ const RANKING = [
     flag: require("../assets/flags/tr.png"),
     date: "12.05.2020",
     prize: "IPHONE 11",
+    exp: "77%",
   },
   {
     name: "Ayse DEMIR",
@@ -66,6 +70,7 @@ const RANKING = [
     flag: require("../assets/flags/tr.png"),
     date: "12.05.2020",
     prize: "IPHONE 11",
+    exp: "55%",
   },
 ];
 
@@ -170,6 +175,8 @@ export default function Ranking({ navigation }) {
                     navigation.navigate("Profile", {
                       name: item.name,
                       avatar: item.avatar,
+                      flag: item.flag,
+                      exp: item.exp.slice(0, 2),
                     });
                   }}
                 >
@@ -253,6 +260,7 @@ export default function Ranking({ navigation }) {
                     avatar: item.avatar,
                     flag: item.flag,
                     lvl: item.lvl,
+                    exp: item.exp.slice(0, 2),
                   });
                 }}
               >

@@ -24,13 +24,11 @@ export default function FriendsTab({
         { backgroundColor: state == index ? "#6a6ffd" : "#0c0e17" },
       ]}
       onPress={() => {
-        if (isDuel && state == index) {
-          if (state == index) {
-            setState(index);
-            setFilter(0);
-          } else {
-            navigation.navigate("Duel");
-          }
+        if (isDuel) {
+          navigation.navigate("Duel");
+        } else {
+          setState(index);
+          setFilter(0);
         }
       }}
     >
