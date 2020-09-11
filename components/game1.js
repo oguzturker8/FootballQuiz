@@ -57,25 +57,41 @@ export default function Game1() {
       <View style={styles.answerWrapper}>
         {ANSWERS.map((item, index) => {
           const bgAnimationTrue = bgAnimate.interpolate({
-            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            inputRange: [
+              0,
+              /*
+              0.2, 0.4, 0.6, 0.8,
+              */
+              1,
+            ],
             outputRange: [
               "#6a6ffd",
+              /*
               "#5E90C1",
               "#59A0A3",
               "#53B085",
               "#4DC167",
+              */
               "#47D149",
             ],
           });
 
           const bgAnimationWrong = bgAnimate.interpolate({
-            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            inputRange: [
+              0,
+              /*
+              0.2, 0.4, 0.6, 0.8,
+              */
+              1,
+            ],
             outputRange: [
               "#6a6ffd",
+              /*
               "#8C4FB3",
               "#9D3F8F",
               "#AD2E6A",
               "#BE1E45",
+              */
               "#CF0E20",
             ],
           });
@@ -85,7 +101,7 @@ export default function Game1() {
               onPress={() => {
                 Animated.timing(bgAnimate, {
                   toValue: 1,
-                  duration: 444,
+                  duration: 222,
                   easing: Easing.linear,
                   //useNativeDriver: true,
                 }).start();

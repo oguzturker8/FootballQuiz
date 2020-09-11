@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   StyleSheet,
   Text,
@@ -24,7 +24,7 @@ import {
 } from "@expo/vector-icons";
 import Settings from "../components/settings";
 import ModalText from "../components/modaltext";
-import { TextInput } from "react-native-gesture-handler";
+import { ScrollView, TextInput } from "react-native-gesture-handler";
 
 const { width, height } = Dimensions.get("window");
 const USERNAME = "Buse DEMIR",
@@ -133,7 +133,6 @@ const Help = [
 const ITEM_GAP = width / 5 + width * 0.04;
 
 export default function Home({ navigation }) {
-  const scrollX = new Animated.Value(0);
   const [settings, setSettings] = useState(false);
   const [help, setHelp] = useState(false);
   const [profile, setProfile] = useState(false);
@@ -144,6 +143,9 @@ export default function Home({ navigation }) {
   const [newPass, setNewPass] = useState(pass);
   const [country, setCountry] = useState("Turkiye");
   const [newCountry, setNewCountry] = useState(country);
+
+  const scrollX = new Animated.Value(0);
+  const animatedValueRef = useRef(scrollX);
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -166,7 +168,9 @@ export default function Home({ navigation }) {
               />
             </View>
             <View style={styles.headerUserContainer}>
-              <Text style={styles.username}>{username}</Text>
+              <Text style={styles.username} numberOfLines={1}>
+                {username}
+              </Text>
               <Text style={styles.userlvl}>{LVL} LVL</Text>
               <View style={styles.lvlbarBg}>
                 <View style={styles.lvlbarActive}></View>
@@ -224,75 +228,83 @@ export default function Home({ navigation }) {
               <Text style={styles.raceText}>RASTGELE YARIS</Text>
             </TouchableOpacity>
             <TouchableOpacity
-              style={styles.raceButton}
+              style={[
+                styles.raceButton,
+                {
+                  borderTopEndRadius: 12,
+                  borderTopStartRadius: 12,
+                  borderBottomEndRadius: 28,
+                  borderBottomStartRadius: 28,
+                },
+              ]}
               onPress={() => navigation.navigate("Races")}
             >
               <Text style={styles.raceText}>YARISMA SEC</Text>
             </TouchableOpacity>
           </View>
-          <Animated.ScrollView
-            showsHorizontalScrollIndicator={false}
-            horizontal
-            bounces={false}
-            contentContainerStyle={{
-              alignItems: "center",
-            }}
-            style={{
-              flexDirection: "row",
-              flex: 1,
-            }}
-            scrollEventThrottle={16}
-            onScroll={Animated.event(
-              [
-                {
-                  nativeEvent: { contentOffset: { x: scrollX } },
-                },
-              ],
-              { useNativeDriver: true }
-            )}
-          >
-            {CAROUSEL.map((item, index) => {
-              const inputRange = [
-                (index - 2) * ITEM_GAP,
-                (index - 1) * ITEM_GAP,
-                index * ITEM_GAP,
-                (index + 1) * ITEM_GAP,
-                (index + 2) * ITEM_GAP,
-              ];
+          <View style={{ height: width / 3 }}>
+            <Animated.ScrollView
+              showsHorizontalScrollIndicator={false}
+              horizontal
+              bounces={false}
+              contentContainerStyle={{
+                alignItems: "center",
+                justifyContent: "center",
+              }}
+              scrollEventThrottle={16}
+              onScroll={Animated.event(
+                [
+                  {
+                    nativeEvent: { contentOffset: { x: scrollX } },
+                  },
+                ],
+                { useNativeDriver: true }
+              )}
+            >
+              {CAROUSEL.map((item, index) => {
+                const inputRange = [
+                  (index - 2) * ITEM_GAP,
+                  (index - 1) * ITEM_GAP,
+                  index * ITEM_GAP,
+                  (index + 1) * ITEM_GAP,
+                  (index + 2) * ITEM_GAP,
+                ];
 
-              const translateY = scrollX.interpolate({
-                inputRange,
-                outputRange: [15, 7.5, 0, 7.5, 15],
-              });
+                const translateY = animatedValueRef.current.interpolate({
+                  inputRange,
+                  outputRange: [0, -5, -10, -5, 0],
+                  useNativeDriver: true,
+                });
 
-              return (
-                <TouchableOpacity
-                  onPress={() => {
-                    navigation.navigate(item.direction);
-                  }}
-                >
-                  <Animated.View
-                    style={[
-                      styles.itemContainer,
-                      {
-                        transform: [{ translateY }],
-                        marginLeft:
-                          index == 0 ? (width - width / 5) / 2 : width * 0.04,
-                        marginRight:
-                          index == CAROUSEL.length - 1
-                            ? (width - width / 5) / 2
-                            : width * 0.04,
-                      },
-                    ]}
-                    key={index}
+                return (
+                  <TouchableOpacity
+                    onPress={() => {
+                      navigation.navigate(item.direction);
+                    }}
                   >
-                    {item.icon}
-                    <Text style={styles.itemTitle}>{item.title}</Text>
-                  </Animated.View>
-                </TouchableOpacity>
-              );
-            })}
-          </Animated.ScrollView>
+                    <Animated.View
+                      style={[
+                        styles.itemContainer,
+                        {
+                          transform: [{ translateY }],
+                          marginLeft:
+                            index == 0 ? (width - width / 5) / 2 : width * 0.02,
+                          marginRight:
+                            index == CAROUSEL.length - 1
+                              ? (width - width / 5) / 2
+                              : width * 0.02,
+                        },
+                      ]}
+                      key={index}
+                    >
+                      {item.icon}
+                      <Text style={styles.itemTitle}>{item.title}</Text>
+                    </Animated.View>
+                  </TouchableOpacity>
+                );
+              })}
+            </Animated.ScrollView>
+          </View>
         </View>
       </ImageBackground>
       <Modal animationType="none" transparent={true} visible={settings}>
@@ -448,6 +460,7 @@ const styles = StyleSheet.create({
   },
   headerUserContainer: {
     height: IMAGE_HEIGHT / 2,
+    width: 80,
   },
   lvlbarBg: {
     height: 4,
@@ -553,13 +566,15 @@ const styles = StyleSheet.create({
     fontSize: 16,
     color: "#fff",
     fontFamily: "Spantaran",
-
     letterSpacing: -0.3,
     textAlign: "center",
   },
   raceButton: {
     paddingVertical: "5%",
-    borderRadius: 50,
+    borderTopEndRadius: 28,
+    borderTopStartRadius: 28,
+    borderBottomEndRadius: 12,
+    borderBottomStartRadius: 12,
     borderWidth: 2,
     borderColor: "#6b70ff",
     width: "48%",

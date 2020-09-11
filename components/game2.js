@@ -65,25 +65,41 @@ export default function Game2() {
           });
 
           const bgAnimationWrong = bgAnimate.interpolate({
-            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            inputRange: [
+              0,
+              /*
+              0.2, 0.4, 0.6, 0.8,
+              */
+              1,
+            ],
             outputRange: [
               "#0b0d15",
+              /*
               "#320D17",
               "#590D19",
               "#810E1C",
               "#A80E1E",
+              */
               "#CF0E20",
             ],
           });
 
           const borderAnimation = bgAnimate.interpolate({
-            inputRange: [0, 0.2, 0.4, 0.6, 0.8, 1],
+            inputRange: [
+              0,
+              /*
+              0.2, 0.4, 0.6, 0.8,
+              */
+              1,
+            ],
             outputRange: [
               "#6a6ffd",
+              /*
               "#5E90C1",
               "#59A0A3",
               "#53B085",
               "#4DC167",
+              */
               "#47D149",
             ],
           });
@@ -105,7 +121,7 @@ export default function Game2() {
                 style={[
                   styles.answerContainer,
                   {
-                    backgroundColor: item.isTrue ? bgAnimationTrue : "#0b0d15", // ya dA bgAnimationWrong
+                    backgroundColor: item.isTrue ? bgAnimationTrue : "#0b0d15", // bgAnimationWrong
                     borderColor: item.isTrue ? borderAnimation : "#6a6ffd",
                   },
                 ]}
